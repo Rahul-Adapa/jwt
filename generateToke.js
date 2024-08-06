@@ -1,18 +1,27 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res) => {
-    const { clientId, source } = req.query;
-    const secretKey = process.env.SECRET_KEY;
+exports.handler = async (event) => {
+    const { clientId, source } = event.queryStringParameters;
 
     if (!clientId || !source) {
-        return res.status(400).json({ error: 'Missing required fields: clientId and source' });
+        return {
+            statusCode: 400,
+            body: JSON.stringify({ error: 'Missing required fields: clientId and source' }),
+        };
     }
 
     try {
-        const token = jwt.sign({ clientId, source }, secretKey, { expiresIn: '1h' });
-        return res.status(200).json({ token });
+        // Generate JWT without a signature (unsigned)
+        const token = jwt.sign({ clientId, source }, '', { algorithm: 'none' });
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ token }),
+        };
     } catch (error) {
         console.error('Error generating JWT:', error);
-        return res.status(500).json({ error: 'Error generating JWT' });
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: 'Error generating JWT' }),
+        };
     }
 };
