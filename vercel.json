@@ -1,0 +1,8 @@
+{
+    "functions": {
+      "main/*.js": {
+        "runtime": "nodejs14.x"
+      }
+    }
+  }
+  
