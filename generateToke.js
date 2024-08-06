@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     }
 
     try {
-        const token = jwt.sign({ clientId, source }, { expiresIn: '1h' });
+        const token = jwt.sign({ clientId, source },undefined, { expiresIn: '1h' });
         return res.status(200).json({ token });
     } catch (error) {
         console.error('Error generating JWT:', error);
