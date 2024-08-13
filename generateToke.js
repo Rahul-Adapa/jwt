@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
-    const { clientId, clientSecret, identity, aud, isAnonymous } = req.body;
+    const { clientId, clientSecret } = req.body;
     const secretKey = 'your-secret-key'; // Use a dummy key for testing
 
     if (!clientId || !clientSecret || !identity || !aud) {
@@ -9,7 +9,7 @@ module.exports = (req, res) => {
     }
     try {
         const token = jwt.sign(
-            { clientId, clientSecret, identity, aud, isAnonymous },
+            { clientId, clientSecret},
             secretKey,
             { expiresIn: '1h' }
         );
