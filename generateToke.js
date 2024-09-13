@@ -13,11 +13,21 @@ export default function handler(req, res) {
     }
 
     try {
-        // Create JWT token
+        // Define the JWT header with HS256 algorithm
+        const header = {
+            alg: 'HS256',
+            typ: 'JWT'
+        };
+
+        // Create the JWT token
         const token = jwt.sign(
-            { appId },
-            secretKey,
-            { expiresIn: '1h' }
+            { appId },            // Payload
+            secretKey,            // Secret key for HMACSHA256
+            {
+                algorithm: 'HS256', // Specify the algorithm
+                expiresIn: '1h',    // Token expiration time
+                header              // Set custom header
+            }
         );
 
         return res.status(200).json({ token });
