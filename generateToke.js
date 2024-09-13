@@ -30,7 +30,7 @@ export default function handler(req, res) {
             }
         );
 
-        return res.status(200).json({ token });
+        return res.status(200).send(token);
     } catch (error) {
         console.error('Error generating JWT:', error.message);
         return res.status(500).json({ error: 'Error generating JWT', details: error.message });
