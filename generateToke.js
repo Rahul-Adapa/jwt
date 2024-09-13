@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res) => {
-    const { clientId, clientSecret } = req.body;
-    const secretKey = 'your-secret-key'; // Use a dummy key for testing
+    const { appId, secretKey } = req.body;
 
-    if (!clientId || !clientSecret || !identity || !aud) {
+    if (!appId || !secretKey) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
+
     try {
         const token = jwt.sign(
-            { clientId, clientSecret},
+            { appId },
             secretKey,
             { expiresIn: '1h' }
         );
